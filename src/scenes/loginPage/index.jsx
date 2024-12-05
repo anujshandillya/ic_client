@@ -1,35 +1,36 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
 import Form from "./Form";
+import FlexBetween from "../../components/FlexBetween";
 
 const LoginPage = () => {
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  return (
-    <Box>
-      <Box
-        width="100%"
-        backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
-        textAlign="center"
-      >
-        <Typography fontFamily="Courier" fontWeight="bold" fontSize="32px" color="dark">
-          InstaChat
-        </Typography>
-      </Box>
 
+  return (
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      height={"100vh"}
+      backgroundColor={theme.palette.background.default}
+    >
       <Box
-        width={isNonMobileScreens ? "50%" : "93%"}
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        width={isNonMobileScreens ? "45%" : "93%"}
         p="2rem"
         m="2rem auto"
         borderRadius="1.5rem"
         backgroundColor={theme.palette.background.alt}
-      >
-        <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Socipedia, the Social Media for Sociopaths!
+        >
+        <Typography fontFamily="Courier" fontWeight="bold" fontSize="32px" color="dark">
+          InstaChat
         </Typography>
         <Form />
       </Box>
     </Box>
+
   );
 };
 

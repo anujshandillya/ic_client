@@ -18,12 +18,13 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
+  const server=import.meta.env.VITE_SERVER_URL;
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://ic-server.onrender.com/users/${_id}/${friendId}`,
+      `${server}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -52,7 +53,6 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             fontWeight="500"
             sx={{
               "&:hover": {
-                color: palette.primary.light,
                 cursor: "pointer",
               },
             }}

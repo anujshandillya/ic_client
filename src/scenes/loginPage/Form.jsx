@@ -6,15 +6,17 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  IconButton,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../state";
+import { setLogin, setMode } from "../../state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -46,6 +48,8 @@ const initialValuesLogin = {
   password: "",
 };
 
+const server=import.meta.env.VITE_SERVER_URL;
+
 const Form = () => {
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
@@ -54,6 +58,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const theme = useTheme();
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -64,7 +69,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://ic-server.onrender.com/auth/register",
+      `${server}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -79,7 +84,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://ic-server.onrender.com/auth/login", {
+    const loggedInResponse = await fetch(`${server}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

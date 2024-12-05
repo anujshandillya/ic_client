@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 
+
 const UserImage = ({ image, size = "60px" }) => {
+  const server=import.meta.env.VITE_SERVER_URL;
   return (
     <Box width={size} height={size}>
       <img
@@ -8,7 +10,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://ic-server.onrender.com/assets/${image}`}
+        src={`${server}/assets/${image}`}
       />
     </Box>
   );

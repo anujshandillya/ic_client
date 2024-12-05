@@ -12,6 +12,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../../state";
 
+const server=import.meta.env.VITE_SERVER_URL;
+
 const PostWidget = ({
   postId,
   postUserId,
@@ -35,7 +37,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`https://ic-server.onrender.com/posts/${postId}/like`, {
+    const response = await fetch(`${server}/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -64,7 +66,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://ic-server.onrender.com/assets/${picturePath}`}
+          src={`${server}/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

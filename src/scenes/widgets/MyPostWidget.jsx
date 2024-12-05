@@ -25,6 +25,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
 
+const server=import.meta.env.VITE_SERVER_URL;
+
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
@@ -46,7 +48,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`https://ic-server.onrender.com/posts`, {
+    const response = await fetch(`${server}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -158,8 +160,9 @@ const MyPostWidget = ({ picturePath }) => {
           disabled={!post}
           onClick={handlePost}
           sx={{
-            color: palette.background.alt,
             backgroundColor: palette.primary.main,
+            color: palette.background.alt,
+            "&:hover": { color: palette.primary.dark },
             borderRadius: "3rem",
           }}
         >
