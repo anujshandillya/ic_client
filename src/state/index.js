@@ -5,6 +5,8 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  selectedConversation: null,
+  messages: [],
 };
 
 export const authSlice = createSlice({
@@ -39,9 +41,15 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setSelectedConversation: (state, action) => {
+      state.selectedConversation = action.payload.selectedConversation;
+    },
+    setMessages: (state, action) => {
+      state.messages = action.payload.messages;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setMessages, setSelectedConversation } =
   authSlice.actions;
 export default authSlice.reducer;

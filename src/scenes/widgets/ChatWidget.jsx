@@ -1,35 +1,39 @@
-import { Typography, useTheme } from "@mui/material";
-import FlexBetween from "../../components/FlexBetween";
-import WidgetWrapper from "../../components/WidgetWrapper";
+import Popover from '@mui/material/Popover';
+import { useState } from 'react';
+import { Message } from '@mui/icons-material';
+import Chat from '../../components/Chat';
 
-const server=import.meta.env.VITE_SERVER_URL;
+const ChatWidget = () =>  {
+  const [anchorEl, setAnchorEl] = useState(null);
 
-const ChatWidget = () => {
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
-    <WidgetWrapper>
-      <FlexBetween>
-        <Typography color={dark} variant="h5" fontWeight="500">
-          Sponsored
-        </Typography>
-        <Typography color={medium}>Create Ad</Typography>
-      </FlexBetween>
-      <img
-        width="100%"
-        height="auto"
-        alt="advert"
-        src={`${server}/assets/info4.jpeg`}
-        style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
-      />
-      <FlexBetween>
-        <Typography color={main}>MikaCosmetics</Typography>
-        <Typography color={medium}>mikacosmetics.com</Typography>
-      </FlexBetween>
-      <Typography color={medium} m="0.5rem 0">
-        Your pathway to stunning and immaculate beauty and made sure your skin
-        is exfoliating skin and shining like light.
-      </Typography>
-    </WidgetWrapper>
+    <div>
+      <Message sx={{ fontSize: "25px" }} onClick={handleClick} />
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Chat />
+      </Popover>
+    </div>
   );
-};
+}
 
 export default ChatWidget;
